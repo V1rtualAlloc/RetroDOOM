@@ -14,11 +14,6 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-#define MAX_HEALTH 100
-#define MIN_HEALTH 0
-#define MAX_ARMOR 100
-#define MIN_ARMOR 0
-
 
 UCLASS()
 class RETRODOOM_API URetroFPSAttributeSet : public UAttributeSet
@@ -36,6 +31,15 @@ public:
 	FGameplayAttributeData Armor;
 	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Armor);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData Bullets;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Bullets);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+		FGameplayAttributeData Rockets;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Rockets);
+
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) override;
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };
