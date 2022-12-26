@@ -19,16 +19,15 @@ bool URetroFPSAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackD
 
 	if (Data.EvaluatedData.Magnitude > 0)
 	{
-		if (Data.EvaluatedData.Attribute == GetArmorAttribute() && GetArmor() + AbsoluteMagnitude >= 100)
+		if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetArmor() <= 0)
 		{
-			SetArmor(100);
+			Health.SetCurrentValue(Health.GetCurrentValue() + AbsoluteMagnitude); 
 			return false;
 		}
 
-		if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetHealth() + AbsoluteMagnitude >= 100)
+		if (Data.EvaluatedData.Attribute == GetArmorAttribute() && GetArmor() <= 0)
 		{
-			SetHealth(100);
-			return false;
+			SetArmor(0);
 		}
 	}
 	else
