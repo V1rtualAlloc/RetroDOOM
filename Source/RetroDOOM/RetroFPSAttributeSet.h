@@ -14,6 +14,12 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+#define MAX_HEALTH 100
+#define MIN_HEALTH 0
+#define MAX_ARMOR 100
+#define MIN_ARMOR 0
+
+
 UCLASS()
 class RETRODOOM_API URetroFPSAttributeSet : public UAttributeSet
 {
