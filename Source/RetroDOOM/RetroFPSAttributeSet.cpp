@@ -31,63 +31,34 @@ bool URetroFPSAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackD
 
 	if (Data.EvaluatedData.Magnitude > 0)
 	{
-		if (Data.EvaluatedData.Attribute == GetArmorAttribute())
+		if (Data.EvaluatedData.Attribute == GetArmorAttribute() && GetArmor() + AbsoluteMagnitude >= RetroChar->MaxArmor)
 		{
-			if (GetArmor() + AbsoluteMagnitude >= RetroChar->MaxArmor)
-			{
-				SetArmor(RetroChar->MaxArmor);
-				return false;
-			}
-			else
-			{
-				Armor.SetCurrentValue(Armor.GetCurrentValue() + AbsoluteMagnitude);
-				return false;
-			}
+			SetArmor(RetroChar->MaxArmor);
+			return false;
 		}
-		else if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+		else if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetHealth() + AbsoluteMagnitude >= RetroChar->MaxHealth)
 		{
-			if (GetHealth() + AbsoluteMagnitude >= RetroChar->MaxHealth)
-			{
-				SetHealth(RetroChar->MaxHealth);
-				return false;
-			}
-			else
-			{
-				Health.SetCurrentValue(Health.GetCurrentValue() + AbsoluteMagnitude);
-				return false;
-			}
+			SetHealth(RetroChar->MaxArmor);
+			return false;
 		}
-		else if (Data.EvaluatedData.Attribute == GetBulletsAttribute())
+		else if (Data.EvaluatedData.Attribute == GetBulletsAttribute() && GetBullets() + AbsoluteMagnitude >= RetroChar->MaxBullets)
 		{
-			if (GetBullets() + AbsoluteMagnitude >= RetroChar->MaxBullets)
-			{
-				SetBullets(RetroChar->MaxBullets);
-				return false;
-			}
-			else
-			{
-				Bullets.SetCurrentValue(Bullets.GetCurrentValue() + AbsoluteMagnitude);
-				return false;
-			}
+			SetBullets(RetroChar->MaxBullets);
+			return false;
 		}
-		else if (Data.EvaluatedData.Attribute == GetRocketsAttribute())
+		else if (Data.EvaluatedData.Attribute == GetRocketsAttribute() && GetRockets() + AbsoluteMagnitude >= RetroChar->MaxRockets)
 		{
-			if (GetRockets() + AbsoluteMagnitude >= RetroChar->MaxRockets)
-			{
-				SetRockets(RetroChar->MaxRockets);
-				return false;
-			}
-			else
-			{
-				Rockets.SetCurrentValue(Rockets.GetCurrentValue() + AbsoluteMagnitude);
-				return false;
-			}
+			SetRockets(RetroChar->MaxRockets);
+			return false;
 		}
 	}
-	else
-	{	
+	else if (Data.EvaluatedData.Magnitude < 0)
+	{
 		if (Data.EvaluatedData.Attribute == GetArmorAttribute() && AbsoluteMagnitude > GetArmor())
-			Health.SetCurrentValue(Health.GetCurrentValue() - (AbsoluteMagnitude - GetArmor()));
+		{
+			SetHealth(GetHealth() - (AbsoluteMagnitude - GetArmor()));
+			//Health.SetCurrentValue(Health.GetCurrentValue() - (AbsoluteMagnitude - GetArmor()));
+		}
 	}
 
 	return true;
